@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.mulesoft.org/schema/mule/spring"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/spring http://www.mulesoft.org/schema/mule/spring/current/mule-spring.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+
+	<vm:config name="VM_Config" doc:name="VM Config" doc:id="b3e7187b-5690-4e81-b45b-128283bec697" >
+		<vm:queues >
+			<vm:queue queueName="triggerQueue" />
+		</vm:queues>
+	</vm:config>
+
+	<spring:config name="Spring_Config" doc:name="Spring Config" doc:id="e334aceb-e70d-4ec0-a7ea-f0c4dd2bb5aa" files="beans.xml" />
+	
+	<notifications>
+		<notification event="CONTEXT"/>
+  		<notification-listener ref="muleContextListener"/>
+	</notifications>
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ef33a087-8d5d-47bb-99a2-5cb655204e6a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	
+</mule>

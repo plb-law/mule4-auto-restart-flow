@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	<flow name="auto-restart-vmFlow" doc:id="a05f06a1-7f4d-4a3d-aebe-f0c760e67be7">
+		<vm:listener doc:name="Listener" doc:id="c0261adc-0409-4ec3-900f-69483ca71741" config-ref="VM_Config" queueName="triggerQueue" />
+		<logger level="INFO" doc:name="Able to access flow automatically VIA vm QUEUE" doc:id="86c3f4a7-b139-4db6-af83-11a23ff384c5" message="Able to access flow automatically VIA vm QUEUE" />
+	</flow>
+	
+</mule>
