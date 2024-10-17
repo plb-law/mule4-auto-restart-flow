@@ -35,21 +35,30 @@ public class MuleContextListener implements MuleContextNotificationListener<Mule
     public Queue getVmQueue(String startingQueue, QueueManager queueManager) {
         if (queueManager == null) {
             LOGGER.error("queueManager is null!");
-            return null;
+            throw new RuntimeException("QueueManager is null: Cannot retrieve queue");
         }
+        
+        // Validate that startingQueue is not empty or null
+        if (startingQueue == null || startingQueue.trim().isEmpty()) {
+            LOGGER.error("startingQueue is empty or null");
+            throw new RuntimeException("startingQueue cannot be empty or null");
+        }
+        
         QueueSession queueSession = queueManager.getQueueSession();
         Queue queue = queueSession.getQueue(startingQueue);
-        LOGGER.info("Queue Found");
         
+        //Will find queue with name of startingQueue, if not found will create queue
+        LOGGER.info("A queue has been found: " + queue.getName());
         return queue;
     }
     
     public void sendMessage(Queue queue, String sendMessage) {
     	try {
 			queue.put(sendMessage);
-			LOGGER.info("Message sent to queue");
+			LOGGER.info("Message sent to queue: " + queue.getName());
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOGGER.error("Failed to send message to queue", e);
+	        throw new RuntimeException("Failed to send message to queue", e);
 		}
     }
 
